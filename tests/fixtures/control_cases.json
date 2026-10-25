@@ -1,0 +1,556 @@
+{
+  "version": "1.1",
+  "kind": "synthetic_test_data",
+  "profile": {
+    "week": "ISO Monday start",
+    "grain": "one event per record, shipped event per logical order in this fixture",
+    "classification": "distinct shipped logical orders per customer and week and item",
+    "refund_count": "refund events; refunded customers distinct",
+    "revenue_variants": [
+      "gross_shipped",
+      "net_including_refunds"
+    ],
+    "dimension": "item_id",
+    "note": "One record is one operation; shipped operations count as purchases."
+  },
+  "input_events": [
+    {
+      "event_key": "a1",
+      "logical_order_key": "A1",
+      "customer_id": "A",
+      "date_time": "2026-04-06T10:00:00",
+      "item_id": 10,
+      "quantity": 3,
+      "payment_amount": "100.00"
+    },
+    {
+      "event_key": "b1",
+      "logical_order_key": "B1",
+      "customer_id": "B",
+      "date_time": "2026-04-07T10:00:00",
+      "item_id": 10,
+      "quantity": 1,
+      "payment_amount": "200.00",
+      "status": "shipped"
+    },
+    {
+      "event_key": "b2",
+      "logical_order_key": "B2",
+      "customer_id": "B",
+      "date_time": "2026-04-07T11:00:00",
+      "item_id": 10,
+      "quantity": 1,
+      "payment_amount": "300.00",
+      "status": "shipped"
+    },
+    {
+      "event_key": "c1",
+      "logical_order_key": "C1",
+      "customer_id": "C",
+      "date_time": "2026-04-08T10:00:00",
+      "item_id": 10,
+      "quantity": 1,
+      "payment_amount": "400.00",
+      "status": "shipped"
+    },
+    {
+      "event_key": "c2",
+      "logical_order_key": "C2",
+      "customer_id": "C",
+      "date_time": "2026-04-09T10:00:00",
+      "item_id": 10,
+      "quantity": 1,
+      "payment_amount": "600.00",
+      "status": "shipped"
+    },
+    {
+      "event_key": "c1r",
+      "logical_order_key": "C1",
+      "customer_id": "C",
+      "date_time": "2026-04-10T10:00:00",
+      "item_id": 10,
+      "quantity": 1,
+      "payment_amount": "400.00",
+      "status": "refunded"
+    },
+    {
+      "event_key": "c2r",
+      "logical_order_key": "C2",
+      "customer_id": "C",
+      "date_time": "2026-04-11T10:00:00",
+      "item_id": 10,
+      "quantity": 1,
+      "payment_amount": "600.00",
+      "status": "refunded"
+    },
+    {
+      "event_key": "d1",
+      "logical_order_key": "D1",
+      "customer_id": "D",
+      "date_time": "2026-04-12T10:00:00",
+      "item_id": 20,
+      "quantity": 2,
+      "payment_amount": "50.00",
+      "status": "shipped"
+    },
+    {
+      "event_key": "a2",
+      "logical_order_key": "A2",
+      "customer_id": "A",
+      "date_time": "2026-04-13T10:00:00",
+      "item_id": 10,
+      "quantity": 1,
+      "payment_amount": "700.00",
+      "status": "shipped"
+    },
+    {
+      "event_key": "f1",
+      "logical_order_key": "F1",
+      "customer_id": "F",
+      "date_time": "2026-04-13T10:00:00",
+      "item_id": 30,
+      "quantity": 1,
+      "payment_amount": "20.00",
+      "status": "shipped"
+    },
+    {
+      "event_key": "f1r",
+      "logical_order_key": "F1",
+      "customer_id": "F",
+      "date_time": "2026-04-14T10:00:00",
+      "item_id": 30,
+      "quantity": 1,
+      "payment_amount": "20.00",
+      "status": "refunded"
+    }
+  ],
+  "expected_sales": [
+    {
+      "event_key": "a1",
+      "logical_order_key": "A1",
+      "customer_id": "A",
+      "date_time": "2026-04-06T10:00:00",
+      "item_id": 10,
+      "quantity": 3,
+      "payment_amount": "100.00",
+      "status": "shipped"
+    },
+    {
+      "event_key": "b1",
+      "logical_order_key": "B1",
+      "customer_id": "B",
+      "date_time": "2026-04-07T10:00:00",
+      "item_id": 10,
+      "quantity": 1,
+      "payment_amount": "200.00",
+      "status": "shipped"
+    },
+    {
+      "event_key": "b2",
+      "logical_order_key": "B2",
+      "customer_id": "B",
+      "date_time": "2026-04-07T11:00:00",
+      "item_id": 10,
+      "quantity": 1,
+      "payment_amount": "300.00",
+      "status": "shipped"
+    },
+    {
+      "event_key": "c1",
+      "logical_order_key": "C1",
+      "customer_id": "C",
+      "date_time": "2026-04-08T10:00:00",
+      "item_id": 10,
+      "quantity": 1,
+      "payment_amount": "400.00",
+      "status": "shipped"
+    },
+    {
+      "event_key": "c2",
+      "logical_order_key": "C2",
+      "customer_id": "C",
+      "date_time": "2026-04-09T10:00:00",
+      "item_id": 10,
+      "quantity": 1,
+      "payment_amount": "600.00",
+      "status": "shipped"
+    },
+    {
+      "event_key": "c1r",
+      "logical_order_key": "C1",
+      "customer_id": "C",
+      "date_time": "2026-04-10T10:00:00",
+      "item_id": 10,
+      "quantity": 1,
+      "payment_amount": "-400.00",
+      "status": "refunded"
+    },
+    {
+      "event_key": "c2r",
+      "logical_order_key": "C2",
+      "customer_id": "C",
+      "date_time": "2026-04-11T10:00:00",
+      "item_id": 10,
+      "quantity": 1,
+      "payment_amount": "-600.00",
+      "status": "refunded"
+    },
+    {
+      "event_key": "d1",
+      "logical_order_key": "D1",
+      "customer_id": "D",
+      "date_time": "2026-04-12T10:00:00",
+      "item_id": 20,
+      "quantity": 2,
+      "payment_amount": "50.00",
+      "status": "shipped"
+    },
+    {
+      "event_key": "a2",
+      "logical_order_key": "A2",
+      "customer_id": "A",
+      "date_time": "2026-04-13T10:00:00",
+      "item_id": 10,
+      "quantity": 1,
+      "payment_amount": "700.00",
+      "status": "shipped"
+    },
+    {
+      "event_key": "f1",
+      "logical_order_key": "F1",
+      "customer_id": "F",
+      "date_time": "2026-04-13T10:00:00",
+      "item_id": 30,
+      "quantity": 1,
+      "payment_amount": "20.00",
+      "status": "shipped"
+    },
+    {
+      "event_key": "f1r",
+      "logical_order_key": "F1",
+      "customer_id": "F",
+      "date_time": "2026-04-14T10:00:00",
+      "item_id": 30,
+      "quantity": 1,
+      "payment_amount": "-20.00",
+      "status": "refunded"
+    }
+  ],
+  "expected_retention_by_revenue_policy": {
+    "gross_shipped": [
+      {
+        "period_name": "weekly",
+        "period_id": 15,
+        "week_start": "2026-04-06",
+        "item_id": 10,
+        "new_customers_count": 1,
+        "returning_customers_count": 2,
+        "refunded_customer_count": 1,
+        "new_customers_revenue": "100.00",
+        "returning_customers_revenue": "1500.00",
+        "customers_refunded": 2
+      },
+      {
+        "period_name": "weekly",
+        "period_id": 15,
+        "week_start": "2026-04-06",
+        "item_id": 20,
+        "new_customers_count": 1,
+        "returning_customers_count": 0,
+        "refunded_customer_count": 0,
+        "new_customers_revenue": "50.00",
+        "returning_customers_revenue": "0.00",
+        "customers_refunded": 0
+      },
+      {
+        "period_name": "weekly",
+        "period_id": 16,
+        "week_start": "2026-04-13",
+        "item_id": 10,
+        "new_customers_count": 1,
+        "returning_customers_count": 0,
+        "refunded_customer_count": 0,
+        "new_customers_revenue": "700.00",
+        "returning_customers_revenue": "0.00",
+        "customers_refunded": 0
+      },
+      {
+        "period_name": "weekly",
+        "period_id": 16,
+        "week_start": "2026-04-13",
+        "item_id": 30,
+        "new_customers_count": 1,
+        "returning_customers_count": 0,
+        "refunded_customer_count": 1,
+        "new_customers_revenue": "20.00",
+        "returning_customers_revenue": "0.00",
+        "customers_refunded": 1
+      }
+    ],
+    "net_including_refunds": [
+      {
+        "period_name": "weekly",
+        "period_id": 15,
+        "week_start": "2026-04-06",
+        "item_id": 10,
+        "new_customers_count": 1,
+        "returning_customers_count": 2,
+        "refunded_customer_count": 1,
+        "new_customers_revenue": "100.00",
+        "returning_customers_revenue": "500.00",
+        "customers_refunded": 2
+      },
+      {
+        "period_name": "weekly",
+        "period_id": 15,
+        "week_start": "2026-04-06",
+        "item_id": 20,
+        "new_customers_count": 1,
+        "returning_customers_count": 0,
+        "refunded_customer_count": 0,
+        "new_customers_revenue": "50.00",
+        "returning_customers_revenue": "0.00",
+        "customers_refunded": 0
+      },
+      {
+        "period_name": "weekly",
+        "period_id": 16,
+        "week_start": "2026-04-13",
+        "item_id": 10,
+        "new_customers_count": 1,
+        "returning_customers_count": 0,
+        "refunded_customer_count": 0,
+        "new_customers_revenue": "700.00",
+        "returning_customers_revenue": "0.00",
+        "customers_refunded": 0
+      },
+      {
+        "period_name": "weekly",
+        "period_id": 16,
+        "week_start": "2026-04-13",
+        "item_id": 30,
+        "new_customers_count": 1,
+        "returning_customers_count": 0,
+        "refunded_customer_count": 1,
+        "new_customers_revenue": "0.00",
+        "returning_customers_revenue": "0.00",
+        "customers_refunded": 1
+      }
+    ]
+  },
+  "checksums": {
+    "sales_rows": 11,
+    "total_revenue": "1350.00",
+    "week15_revenue": "650.00",
+    "week16_revenue": "700.00"
+  },
+  "corrected_sunday_scenarios": [
+    {
+      "id": "add_order",
+      "replaced_day": "2026-04-12",
+      "new_events": [
+        {
+          "event_key": "d1",
+          "logical_order_key": "D1",
+          "customer_id": "D",
+          "date_time": "2026-04-12T10:00:00",
+          "item_id": 20,
+          "quantity": 2,
+          "payment_amount": "50.00",
+          "status": "shipped"
+        },
+        {
+          "event_key": "d2",
+          "logical_order_key": "D2",
+          "customer_id": "D",
+          "date_time": "2026-04-12T11:00:00",
+          "item_id": 20,
+          "quantity": 1,
+          "payment_amount": "70.00",
+          "status": "shipped"
+        }
+      ],
+      "expected_week15_item20": {
+        "new_customers_count": 0,
+        "returning_customers_count": 1,
+        "new_customers_revenue": "0.00",
+        "returning_customers_revenue": "120.00"
+      },
+      "expected_sales_rows": 12,
+      "expected_total_revenue": "1420.00"
+    },
+    {
+      "id": "change_amount",
+      "replaced_day": "2026-04-12",
+      "new_events": [
+        {
+          "event_key": "d1",
+          "logical_order_key": "D1",
+          "customer_id": "D",
+          "date_time": "2026-04-12T10:00:00",
+          "item_id": 20,
+          "quantity": 2,
+          "payment_amount": "80.00",
+          "status": "shipped"
+        }
+      ],
+      "expected_sales_rows": 11,
+      "expected_total_revenue": "1380.00",
+      "expected_week15_item20_new_customers_revenue": "80.00"
+    },
+    {
+      "id": "remove_order",
+      "replaced_day": "2026-04-12",
+      "new_events": [],
+      "expected_sales_rows": 10,
+      "expected_total_revenue": "1300.00",
+      "expected_week15_item20": "no row, or documented zero row if calendar/dimension densification is intended"
+    }
+  ],
+  "updated_on": "2026-10-25",
+  "micro_cases": [
+    {
+      "id": "T25",
+      "events": [
+        {
+          "event_key": "q1",
+          "logical_order_key": "Q1",
+          "customer_id": "Q",
+          "date_time": "2026-04-06T10:00:00",
+          "item_id": 10,
+          "quantity": 3,
+          "payment_amount": "100.00",
+          "status": "shipped"
+        },
+        {
+          "event_key": "q1r",
+          "logical_order_key": "Q1",
+          "customer_id": "Q",
+          "date_time": "2026-04-07T10:00:00",
+          "item_id": 10,
+          "quantity": 3,
+          "payment_amount": "100.00",
+          "status": "refunded"
+        }
+      ],
+      "expected": {
+        "sales_rows": 2,
+        "total_revenue": "0.00",
+        "new_customers_count": 1,
+        "returning_customers_count": 0,
+        "refunded_customer_count": 1,
+        "customers_refunded": 1,
+        "new_customers_revenue": {
+          "gross_shipped": "100.00",
+          "net_including_refunds": "0.00"
+        },
+        "returning_customers_revenue": {
+          "gross_shipped": "0.00",
+          "net_including_refunds": "0.00"
+        }
+      }
+    },
+    {
+      "id": "T26",
+      "events": [
+        {
+          "event_key": "m1",
+          "logical_order_key": "M1",
+          "customer_id": "M",
+          "date_time": "2026-04-06T10:00:00",
+          "item_id": 10,
+          "quantity": 1,
+          "payment_amount": "100.25",
+          "status": "shipped"
+        },
+        {
+          "event_key": "n1",
+          "logical_order_key": "N1",
+          "customer_id": "N",
+          "date_time": "2026-04-07T10:00:00",
+          "item_id": 10,
+          "quantity": 1,
+          "payment_amount": "200.10",
+          "status": "shipped"
+        },
+        {
+          "event_key": "n2",
+          "logical_order_key": "N2",
+          "customer_id": "N",
+          "date_time": "2026-04-07T11:00:00",
+          "item_id": 10,
+          "quantity": 1,
+          "payment_amount": "300.20",
+          "status": "shipped"
+        }
+      ],
+      "expected": {
+        "sales_rows": 3,
+        "total_revenue": "600.55",
+        "new_customers_count": 1,
+        "returning_customers_count": 1,
+        "refunded_customer_count": 0,
+        "customers_refunded": 0,
+        "new_customers_revenue": {
+          "gross_shipped": "100.25",
+          "net_including_refunds": "100.25"
+        },
+        "returning_customers_revenue": {
+          "gross_shipped": "500.30",
+          "net_including_refunds": "500.30"
+        }
+      }
+    },
+    {
+      "id": "T27",
+      "events": [
+        {
+          "event_key": "p1",
+          "logical_order_key": "P1",
+          "customer_id": "P",
+          "date_time": "2026-04-06T10:00:00",
+          "item_id": 10,
+          "quantity": 1,
+          "payment_amount": "200.00",
+          "status": "shipped"
+        },
+        {
+          "event_key": "p2",
+          "logical_order_key": "P2",
+          "customer_id": "P",
+          "date_time": "2026-04-07T10:00:00",
+          "item_id": 10,
+          "quantity": 1,
+          "payment_amount": "300.00",
+          "status": "shipped"
+        },
+        {
+          "event_key": "p1r",
+          "logical_order_key": "P1",
+          "customer_id": "P",
+          "date_time": "2026-04-08T10:00:00",
+          "item_id": 10,
+          "quantity": 1,
+          "payment_amount": "40.00",
+          "status": "refunded"
+        }
+      ],
+      "expected": {
+        "sales_rows": 3,
+        "total_revenue": "460.00",
+        "new_customers_count": 0,
+        "returning_customers_count": 1,
+        "refunded_customer_count": 1,
+        "customers_refunded": 1,
+        "new_customers_revenue": {
+          "gross_shipped": "0.00",
+          "net_including_refunds": "0.00"
+        },
+        "returning_customers_revenue": {
+          "gross_shipped": "500.00",
+          "net_including_refunds": "460.00"
+        }
+      }
+    }
+  ]
+}

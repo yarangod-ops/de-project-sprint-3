@@ -1,0 +1,10 @@
+ARG TRAINER_IMAGE=cr.yandex/crp1r8pht0n0gl25aug1/project-sprint-3@sha256:54de1c2ff77d57c5a9fc933f50f199cb11c1a39d5dec328bea77f9d1db988b33
+FROM ${TRAINER_IMAGE}
+COPY src/dags /work/dags
+COPY scripts/check_airflow.py /work/check_airflow.py
+ENV AIRFLOW_HOME=/tmp/airflow
+ENV AIRFLOW__CORE__LOAD_EXAMPLES=False
+ENV AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=sqlite:////tmp/airflow-check.db
+ENV AIRFLOW__LOGGING__BASE_LOG_FOLDER=/tmp/airflow-logs
+ENV PYTHONDONTWRITEBYTECODE=1
+ENTRYPOINT ["python3", "/work/check_airflow.py"]

@@ -1,0 +1,9 @@
+*
+!src
+!src/dags
+!src/dags/**
+!scripts
+!scripts/check_airflow.py
+!scripts/Dockerfile.airflow-check
+**/__pycache__
+**/*.pyc

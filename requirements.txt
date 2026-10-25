@@ -1,0 +1,2 @@
+# CLI и PostgreSQL-тесты. Airflow и provider берутся из учебного окружения.
+psycopg2-binary==2.9.10
